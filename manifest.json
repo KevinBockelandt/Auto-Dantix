@@ -1,0 +1,12 @@
+{
+  "manifest_version": 2,
+  "name": "Auto-Dantix",
+  "version": "1.0",
+  "description": "Aide à résoude Pédantix",
+  "content_scripts": [
+    {
+      "matches": ["https://cemantix.certitudes.org/pedantix"],
+      "js": ["auto-dantix.js"]
+    }
+  ]
+}
