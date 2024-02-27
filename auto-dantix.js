@@ -1,6 +1,7 @@
 const guesses = [
   'c',
   'd',
+  'e',
   'l',
   'm',
   'n',
@@ -23,6 +24,7 @@ const guesses = [
   'son',
   'que',
   'via',
+  'pas',
   'être',
   'avoir',
   'faire',
@@ -44,11 +46,14 @@ const guesses = [
   'France',
   'Français',
   'Anglais',
+  'Latin',
+  'Grec',
   'mathématique',
   'physique',
   'astronomie',
   'science',
   'calcul',
+  'invention',
   'étude',
   'texte',
   'mot',
@@ -100,9 +105,6 @@ function sleep(duration) {
 }
 
 async function tryAllGuesses() {
-  // wait a little at the start since the pedantix scripts take some time to setup
-  await sleep(500);
-
   const inputField = document.getElementById('pedantix-guess');
   const inputButton = document.getElementById('pedantix-guess-btn');
   let curPlaceholder = '';
@@ -129,4 +131,11 @@ async function tryAllGuesses() {
 }
 
 // trigger everything once the page is fully loaded
-window.addEventListener('load', tryAllGuesses);
+window.addEventListener('load', () => {
+  const autoDantixBtn = document.createElement('button');
+  autoDantixBtn.innerHTML = 'Auto-Dantix';
+  autoDantixBtn.style.marginTop = '1rem';
+  autoDantixBtn.addEventListener('click', tryAllGuesses);
+
+  document.getElementById('pedantix-summary').prepend(autoDantixBtn);
+});
