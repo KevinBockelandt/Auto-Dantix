@@ -1,4 +1,7 @@
 {
+  "background": {
+    "scripts": ["background.js"]
+  },
   "manifest_version": 2,
   "name": "Auto-Dantix",
   "version": "1.0",
@@ -8,5 +11,11 @@
       "matches": ["https://cemantix.certitudes.org/pedantix"],
       "js": ["auto-dantix.js"]
     }
+  ],
+  "options_ui": {
+    "page": "options.html"
+  },
+  "permissions": [
+    "storage"
   ]
 }

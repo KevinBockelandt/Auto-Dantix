@@ -111,11 +111,16 @@ async function tryAllGuesses() {
   let curIndex = 0;
   let shouldContinue;
 
+  // go through all the guesses in the list
   while (curIndex < guesses.length) {
     inputField.value = guesses[curIndex];
     curPlaceholder = inputField.placeholder;
     shouldContinue = true;
 
+    // make sure the guess is properly processed by trying again
+    // until it is if necessary
+    // this is necessary since there are misses sometimes (for asynchronous
+    // timing reasons)
     while (shouldContinue) {
       if (inputField.placeholder !== curPlaceholder) {
         shouldContinue = false;
@@ -132,10 +137,14 @@ async function tryAllGuesses() {
 
 // trigger everything once the page is fully loaded
 window.addEventListener('load', () => {
+  // create the button to trigger the process
   const autoDantixBtn = document.createElement('button');
   autoDantixBtn.innerHTML = 'Auto-Dantix';
   autoDantixBtn.style.marginTop = '1rem';
-  autoDantixBtn.addEventListener('click', tryAllGuesses);
+  // autoDantixBtn.addEventListener('click', tryAllGuesses);
+  autoDantixBtn.addEventListener('click', () => {
+    browser.runtime.sendMessage('showOptions');
+  });
 
   document.getElementById('pedantix-summary').prepend(autoDantixBtn);
 });
