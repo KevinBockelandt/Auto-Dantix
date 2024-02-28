@@ -2,14 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <style>
+      body {
+        padding: 1rem;
+      }
+      #list-word-btn {
+        margin: 1rem auto;
+        text-align: center;
+      }
+    </style>
   </head>
 
   <body>
-    <p>Mettre ici la liste des mots à utiliser, séparés chacun par un espace :</p>
-    <form>
-      <textarea id="input-list-word" rows="4" cols="60"></textarea>
-      <button type="submit">Sauvegarder</button>
-    </form>
+    <p>Mettre ici la liste des mots à utiliser, séparés chacun par une virgule :</p>
+    <textarea id="list-word-input" rows="6" cols="60"></textarea>
+    <button type="button" id="list-word-btn">Sauvegarder</button>
+    <p>Liste actuelle :</p>
+    <ul id="list-word">
+    </ul>
     <script src="options.js"></script>
   </body>
 </html>
