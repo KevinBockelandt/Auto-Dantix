@@ -1,109 +1,4 @@
-// const guesses = [
-//   'c',
-//   'd',
-//   'e',
-//   'l',
-//   'm',
-//   'n',
-//   's',
-//   'à',
-//   'sa',
-//   'de',
-//   'là',
-//   'le',
-//   'un',
-//   'il',
-//   'ou',
-//   'où',
-//   'ce',
-//   'ne',
-//   'en',
-//   'du',
-//   'ci',
-//   'et',
-//   'son',
-//   'que',
-//   'via',
-//   'pas',
-//   'être',
-//   'avoir',
-//   'faire',
-//   'lire',
-//   'devenir',
-//   'sud',
-//   'est',
-//   'ouest',
-//   'pays',
-//   'ville',
-//   'Europe',
-//   'Amérique',
-//   'Asie',
-//   'Afrique',
-//   'Australie',
-//   'continent',
-//   'endroit',
-//   'lieu',
-//   'France',
-//   'Français',
-//   'Anglais',
-//   'Latin',
-//   'Grec',
-//   'mathématique',
-//   'physique',
-//   'astronomie',
-//   'science',
-//   'calcul',
-//   'invention',
-//   'étude',
-//   'texte',
-//   'mot',
-//   'oeuvre',
-//   'concept',
-//   'idée',
-//   'art',
-//   'architecture',
-//   'bâtiment',
-//   'religion',
-//   'dieu',
-//   'période',
-//   'histoire',
-//   'X',
-//   'XI',
-//   'XII',
-//   'XIII',
-//   'XIV',
-//   'XV',
-//   'XVI',
-//   'XVII',
-//   'XVIII',
-//   'XIX',
-//   'XX',
-//   'XXI',
-//   'siècle',
-//   'après',
-//   'avant',
-//   'petit',
-//   'grand',
-//   'moins',
-//   'plus',
-//   'bien',
-//   'mal',
-//   'début',
-//   'fin',
-//   'ancien',
-//   'nouveau',
-//   'ainsi',
-//   'alors',
-//   'pour',
-//   'encore',
-//   'ensemble',
-// ];
-
 let guesses = []; 
-browser.storage.local.get('listWord').then(
-  (res) => guesses = res.listWord,
-  (err) => console.error(err)
-);
 
 // useful to use with 'await' keyword
 function sleep(duration) {
@@ -111,6 +6,13 @@ function sleep(duration) {
 }
 
 async function tryAllGuesses() {
+  // gather the list from local storage only here because it might be modified
+  // by the user in between several tries
+  browser.storage.local.get('listWord').then(
+    (res) => guesses = res.listWord,
+    (err) => console.error(err)
+  );
+
   const inputField = document.getElementById('pedantix-guess');
   const inputButton = document.getElementById('pedantix-guess-btn');
   let curPlaceholder = '';
@@ -123,10 +25,8 @@ async function tryAllGuesses() {
     curPlaceholder = inputField.placeholder;
     shouldContinue = true;
 
-    // make sure the guess is properly processed by trying again
-    // until it is if necessary
-    // this is necessary since there are misses sometimes (for asynchronous
-    // timing reasons)
+    // make sure the guess is properly processed by trying again until it is.
+    // this is necessary since it might miss for asynchronous timing reasons
     while (shouldContinue) {
       if (inputField.placeholder !== curPlaceholder) {
         shouldContinue = false;
